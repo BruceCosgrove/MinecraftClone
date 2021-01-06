@@ -3,7 +3,6 @@
 #include <vector>
 
 #include "VertexBuffer.h"
-#include "IndexBuffer.h"
 
 class VertexArray
 {
@@ -15,12 +14,9 @@ public:
 	void unbind() const;
 
 	void addVertexBuffer(const VertexBuffer* vertexBuffer);
-	void setIndexBuffer(const IndexBuffer* indexBuffer);
 
 	const std::vector<const VertexBuffer*>& getVertexBuffers() { return vertexBuffers; }
-	const IndexBuffer* getIndexBuffer() const { return indexBuffer; }
 private:
-	unsigned int rendererID;
+	unsigned int rendererID = 0;
 	std::vector<const VertexBuffer*> vertexBuffers;
-	const IndexBuffer* indexBuffer = nullptr;
 };

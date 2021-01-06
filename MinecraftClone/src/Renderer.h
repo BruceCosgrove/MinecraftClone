@@ -3,6 +3,8 @@
 #include <glm/glm.hpp>
 
 #include "VertexArray.h"
+#include "IndexBuffer.h"
+#include "Material.h"
 
 class Renderer
 {
@@ -13,5 +15,5 @@ public:
 	void setClearColor(const glm::vec4& color);
 	void clear();
 
-	void draw(const VertexArray& vertexArray);
+	void draw(const VertexArray& vertexArray, const IndexBuffer& indexBuffer, const Material& material);
 };

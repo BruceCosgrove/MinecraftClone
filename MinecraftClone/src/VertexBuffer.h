@@ -1,6 +1,6 @@
 #pragma once
 
-#include "BufferLayout.h"
+class BufferLayout;
 
 class VertexBuffer
 {
@@ -15,5 +15,5 @@ public:
 	inline void setBufferLayout(const BufferLayout* layout) { this->layout = layout; }
 private:
 	unsigned int rendererID = 0;
-	const BufferLayout* layout;
+	const BufferLayout* layout = nullptr;
 };

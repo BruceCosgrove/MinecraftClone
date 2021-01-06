@@ -12,5 +12,5 @@ public:
 	unsigned int getCount() const { return count; }
 private:
 	unsigned int rendererID = 0;
-	unsigned int count;
+	unsigned int count = 0;
 };

@@ -6,7 +6,8 @@
 **.vcxproj.filters
 **.vcxproj.user
 
-
+# ImGui
+**/imgui.ini
 
 # Binaries
 bin/

@@ -1,4 +1,5 @@
 #include "VertexArray.h"
+#include "BufferLayout.h"
 
 #include <gl/glew.h>
 
@@ -37,11 +38,4 @@ void VertexArray::addVertexBuffer(const VertexBuffer* vertexBuffer)
 		// TODO: not just floats, but the ints and the bools too
 		glVertexAttribPointer(i, element.count, GL_FLOAT, element.normalized, layout->getStride(), (const void*)((unsigned long long)element.offset));
 	}
-}
-
-void VertexArray::setIndexBuffer(const IndexBuffer* indexBuffer)
-{
-	glBindVertexArray(rendererID);
-	indexBuffer->bind();
-	this->indexBuffer = indexBuffer;
 }

@@ -3,21 +3,30 @@
 #include <gl/glew.h>
 #include <glfw/glfw3.h>
 
-Window::Window(const WindowProps& props)
+//#include <iostream>
+
+Window::Window(const WindowSpecifications& specs)
 {
 	if (glfwInit() != GLFW_TRUE)
 		return;
 
-	window = glfwCreateWindow(props.width, props.height, props.title, nullptr, nullptr);
+	// TODO: get these from specifications
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	window = glfwCreateWindow(specs.width, specs.height, specs.title, nullptr, nullptr);
 	if (window == nullptr)
 		return;
 
 	glfwMakeContextCurrent(window);
-	glfwSwapInterval(props.vsync);
+	glfwSwapInterval(specs.vsync);
 
 	// Initialize glew AFTER a valid opengl context is made current
 	if (glewInit() != GLEW_OK)
 		return;
+	
+	//std::cout << glGetString(GL_VERSION) << '\n';
 }
 
 Window::~Window()

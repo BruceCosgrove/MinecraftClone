@@ -1,6 +1,6 @@
 #pragma once
 
-struct WindowProps
+struct WindowSpecifications
 {
 	int width = 1280;
 	int height = 720;
@@ -12,12 +12,14 @@ struct GLFWwindow;
 class Window
 {
 public:
-	Window(const WindowProps& props = WindowProps());
+	Window(const WindowSpecifications& specs = WindowSpecifications());
 	~Window();
 
 	bool shouldClose();
 	void pollEvents();
 	void swapBuffers();
+	
+	inline GLFWwindow* getNativeWindow() const { return window; }
 private:
-	GLFWwindow* window;
+	GLFWwindow* window = nullptr;
 };

@@ -1,4 +1,5 @@
 #include "VertexBuffer.h"
+#include "BufferLayout.h"
 
 #include <gl/glew.h>
 

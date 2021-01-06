@@ -1,6 +1,5 @@
 #pragma once
 
-//#include <initializer_list>
 #include <vector>
 
 enum class ElementType : int
