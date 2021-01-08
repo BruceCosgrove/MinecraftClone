@@ -2,11 +2,11 @@
 
 #include <gl/glew.h>
 
-OpenGLTexture::OpenGLTexture(const Texture& texture)
+OpenGLTexture::OpenGLTexture(const Texture* texture)
 	: texture(texture)
 {
 	// TODO: this should be from texture specifications
-	switch (texture.getChannels())
+	switch (texture->getChannels())
 	{
 		case 1: internalFormat = GL_R8; localFormat = GL_R; break;
 		case 2: internalFormat = GL_RG8; localFormat = GL_RG; break;
@@ -15,7 +15,7 @@ OpenGLTexture::OpenGLTexture(const Texture& texture)
 	}
 
 	glCreateTextures(GL_TEXTURE_2D, 1, &rendererID);
-	glTextureStorage2D(rendererID, 1, internalFormat, texture.getWidth(), texture.getHeight());
+	glTextureStorage2D(rendererID, 1, internalFormat, texture->getWidth(), texture->getHeight());
 
 	// TODO: this should be from texture specifications
 	glTextureParameteri(rendererID, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -23,8 +23,8 @@ OpenGLTexture::OpenGLTexture(const Texture& texture)
 	glTextureParameteri(rendererID, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTextureParameteri(rendererID, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-	// TODO: this should be from texture specifications -------------------------------------------VVVVVVVVVVVVVVVV
-	glTextureSubImage2D(rendererID, 0, 0, 0, texture.getWidth(), texture.getHeight(), localFormat, GL_UNSIGNED_BYTE, texture.getData());
+	// TODO: this should be from texture specifications ---------------------------------------------VVVVVVVVVVVVVVVV
+	glTextureSubImage2D(rendererID, 0, 0, 0, texture->getWidth(), texture->getHeight(), localFormat, GL_UNSIGNED_BYTE, texture->getData());
 }
 
 OpenGLTexture::~OpenGLTexture()
@@ -44,6 +44,6 @@ void OpenGLTexture::unbind(unsigned int slot) const
 
 void OpenGLTexture::update()
 {
-	// TODO: this should be from texture specifications -------------------------------------------VVVVVVVVVVVVVVVV
-	glTextureSubImage2D(rendererID, 0, 0, 0, texture.getWidth(), texture.getHeight(), localFormat, GL_UNSIGNED_BYTE, texture.getData());
+	// TODO: this should be from texture specifications ---------------------------------------------VVVVVVVVVVVVVVVV
+	glTextureSubImage2D(rendererID, 0, 0, 0, texture->getWidth(), texture->getHeight(), localFormat, GL_UNSIGNED_BYTE, texture->getData());
 }

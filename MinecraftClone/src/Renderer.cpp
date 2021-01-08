@@ -18,25 +18,36 @@ Renderer::~Renderer()
 
 }
 
-void Renderer::setClearColor(const glm::vec4& color)
+int Renderer::getMaxTextureSlots() const
+{
+	int maxTextureSlots = 0;
+	glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &maxTextureSlots);
+	return maxTextureSlots;
+}
+
+void Renderer::onViewportResized(int width, int height) const
+{
+	glViewport(0, 0, width, height);
+}
+
+void Renderer::setClearColor(const glm::vec4& color) const
 {
 	glClearColor(color.r, color.g, color.b, color.a);
 }
 
-void Renderer::clear()
+void Renderer::clear() const
 {
 	// TODO: abstract this
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Renderer::draw(const VertexArray& vertexArray, const IndexBuffer& indexBuffer, const Material& material)
+void Renderer::drawIndexed(const VertexArray& vertexArray, const IndexBuffer& indexBuffer, unsigned int maxIndexCount) const
 {
 	vertexArray.bind();
 	indexBuffer.bind();
-	material.bind();
+	int indexCount = maxIndexCount != 0 ? maxIndexCount : indexBuffer.getCount();
 
 	// TODO: if unsigned shorts or chars are supported, that should be stored in IndexBuffer
 	// TODO: support other primitive types, ex: GL_LINES_ADJACENCY
-	// TODO: abstract this
-	glDrawElements(GL_TRIANGLES, indexBuffer.getCount(), GL_UNSIGNED_INT, nullptr);
+	glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, nullptr);
 }

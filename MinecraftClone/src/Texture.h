@@ -27,6 +27,7 @@ public:
 	inline unsigned char* getData() const { return data; }
 
 	inline operator bool() const { return data != nullptr; }
+	inline bool operator==(const Texture& texture) const { return data == texture.data; }
 private:
 	std::string filePath;
 

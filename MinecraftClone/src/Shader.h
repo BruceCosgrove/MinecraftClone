@@ -31,6 +31,9 @@ public:
 
 	template<typename T>
 	void setUniform(const std::string& name, const T& value) const;
+
+	template<typename T>
+	void setUniforms(const std::string& name, const T* values, int count) const;
 private:
 	bool linkAndValidate();
 	unsigned int compile(const ShaderFile& shader);

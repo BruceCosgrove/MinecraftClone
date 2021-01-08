@@ -1,5 +1,4 @@
 #include "VertexArray.h"
-#include "BufferLayout.h"
 
 #include <gl/glew.h>
 
@@ -29,13 +28,13 @@ void VertexArray::addVertexBuffer(const VertexBuffer* vertexBuffer)
 	vertexBuffer->bind();
 	vertexBuffers.push_back(vertexBuffer);
 	
-	const BufferLayout* layout = vertexBuffer->getBufferLayout();
-	const std::vector<BufferElement>& elements = layout->getElements();
+	const BufferLayout& layout = vertexBuffer->getLayout();
+	const std::vector<BufferElement>& elements = layout.getElements();
 	for (unsigned int i = 0; i < elements.size(); i++)
 	{
 		const BufferElement& element = elements[i];
 		glEnableVertexAttribArray(i);
 		// TODO: not just floats, but the ints and the bools too
-		glVertexAttribPointer(i, element.count, GL_FLOAT, element.normalized, layout->getStride(), (const void*)((unsigned long long)element.offset));
+		glVertexAttribPointer(i, element.count, GL_FLOAT, element.normalized, layout.getStride(), (const void*)((unsigned long long)element.offset));
 	}
 }

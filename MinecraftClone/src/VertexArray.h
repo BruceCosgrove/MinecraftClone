@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "VertexBuffer.h"
+#include "Buffer.h"
 
 class VertexArray
 {
@@ -14,8 +14,7 @@ public:
 	void unbind() const;
 
 	void addVertexBuffer(const VertexBuffer* vertexBuffer);
-
-	const std::vector<const VertexBuffer*>& getVertexBuffers() { return vertexBuffers; }
+	inline const std::vector<const VertexBuffer*>& getVertexBuffers() { return vertexBuffers; }
 private:
 	unsigned int rendererID = 0;
 	std::vector<const VertexBuffer*> vertexBuffers;

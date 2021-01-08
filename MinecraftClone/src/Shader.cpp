@@ -145,18 +145,52 @@ int ShaderProgram::getUniformLocation(const std::string& name) const
 }
 
 template<> void ShaderProgram::setUniform<float>(const std::string& name, const float& value) const
-{ glUniform1fv(getUniformLocation(name), 1, &value); }
+{
+	int location = getUniformLocation(name);
+	if (location != -1) glUniform1fv(location, 1, &value);
+}
 template<> void ShaderProgram::setUniform<glm::vec2>(const std::string& name, const glm::vec2& value) const
-{ glUniform2fv(getUniformLocation(name), 1, glm::value_ptr(value)); }
+{
+	int location = getUniformLocation(name);
+	if (location != -1) glUniform2fv(location, 1, glm::value_ptr(value));
+}
 template<> void ShaderProgram::setUniform<glm::vec3>(const std::string& name, const glm::vec3& value) const
-{ glUniform3fv(getUniformLocation(name), 1, glm::value_ptr(value)); }
+{
+	int location = getUniformLocation(name);
+	if (location != -1) glUniform3fv(location, 1, glm::value_ptr(value));
+}
 template<> void ShaderProgram::setUniform<glm::vec4>(const std::string& name, const glm::vec4& value) const
-{ glUniform4fv(getUniformLocation(name), 1, glm::value_ptr(value)); }
+{
+	int location = getUniformLocation(name);
+	if (location != -1) glUniform4fv(location, 1, glm::value_ptr(value));
+}
 
 template<> void ShaderProgram::setUniform<int>(const std::string& name, const int& value) const
-{ glUniform1iv(getUniformLocation(name), 1, &value); }
+{
+	int location = getUniformLocation(name);
+	if (location != -1) glUniform1iv(location, 1, &value);
+}
 template<> void ShaderProgram::setUniform<unsigned int>(const std::string& name, const unsigned int& value) const
-{ glUniform1uiv(getUniformLocation(name), 1, &value); }
+{
+	int location = getUniformLocation(name);
+	if (location != -1) glUniform1uiv(location, 1, &value);
+}
 
 template<> void ShaderProgram::setUniform<glm::mat4>(const std::string& name, const glm::mat4x4& value) const
-{ glUniformMatrix4fv(getUniformLocation(name), 1, false, glm::value_ptr(value)); }
+{
+	int location = getUniformLocation(name);
+	if (location != -1) glUniformMatrix4fv(location, 1, false, glm::value_ptr(value));
+}
+
+
+template<> void ShaderProgram::setUniforms<int>(const std::string& name, const int* values, int count) const
+{
+	int location = getUniformLocation(name);
+	if (location != -1) glUniform1iv(location, count, values);
+}
+
+template<> void ShaderProgram::setUniforms<unsigned int>(const std::string& name, const unsigned int* values, int count) const
+{
+	int location = getUniformLocation(name);
+	if (location != -1) glUniform1uiv(location, count, values);
+}
