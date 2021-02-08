@@ -6,6 +6,8 @@ layout(location = 2) in vec2 texCoord;
 layout(location = 3) in float texIndex;
 
 out vec2 _texCoord;
+out vec4 _tintColor;
+out float _texIndex;
 
 uniform mat4 projection;
 uniform mat4 cameraTransform;
@@ -16,4 +18,6 @@ void main()
 	
 	gl_Position = projection * view * vec4(position, 1.0);
 	_texCoord = texCoord;
+	_tintColor = tintColor;
+	_texIndex = texIndex;
 }
