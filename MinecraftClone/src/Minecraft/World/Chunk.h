@@ -22,7 +22,7 @@ public:
 	inline World& getWorld() { return world; }
 	inline const glm::ivec3& getPosition() const { return position; }
 
-	void regenerateMesh();
+	void regenerateMesh(const CameraController& cameraController);
 
 	static constexpr int size = 16;
 private:

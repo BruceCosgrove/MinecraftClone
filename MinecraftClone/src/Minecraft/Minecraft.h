@@ -28,7 +28,6 @@ private:
 	void loadTextures();
 	glm::ivec2 loadTexture(TextureAtlas& textureAtlas, const std::string& filePath);
 	void unloadTextures();
-	Texture** localTextureAtlases = nullptr;
 	OpenGLTexture** textureAtlases = nullptr;
 	int textureAtlasCount = 1;
 	glm::ivec2 textureAtlasSize{ 0 };

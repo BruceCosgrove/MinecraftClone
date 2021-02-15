@@ -14,8 +14,10 @@ public:
 
 	glm::mat4 getTransform() const;
 
-	void setTranslation(const glm::vec3& translation) { this->translation = translation; }
-	void setRotation(const glm::vec3& rotation) { this->rotation = rotation; }
+	inline const glm::vec3& getTranslation() const { return translation; }
+	inline void setTranslation(const glm::vec3& translation) { this->translation = translation; }
+	inline const glm::vec3& getRotation() const { return rotation; }
+	inline void setRotation(const glm::vec3& rotation) { this->rotation = rotation; }
 private:
 	float speed = 1.0f;
 

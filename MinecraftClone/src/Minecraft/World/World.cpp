@@ -6,7 +6,7 @@
 #include "Generation/WorldGenerator.h"
 #include "Models/RenderPass.h"
 
-World::World()
+World::World(const CameraController& cameraController)
 {
 	chunks = new Chunk*[chunkCount];
 	for (int z = 0, i = 0; z < chunksZ; z++)
@@ -17,7 +17,7 @@ World::World()
 	WorldGenerator::generate(*this, time(nullptr));
 
 	for (int i = 0; i < chunkCount; i++)
-		chunks[i]->regenerateMesh();
+		chunks[i]->regenerateMesh(cameraController);
 }
 
 World::~World()
@@ -35,9 +35,15 @@ void World::onUpdate(float deltaTime)
 
 void World::onRender()
 {
-	for (int i = 0; i < renderPassCount; i++)
-		for (int j = 0; j < chunkCount; j++)
-			chunks[j]->onRender(static_cast<RenderPass>(i));
+	Renderer::enableCullFace();
+	for (int j = 0; j < chunkCount; j++)
+		chunks[j]->onRender(RenderPass::OpaqueOrTransparent);
+
+	BasicRenderer::endScene();
+
+	Renderer::enableCullFace(false);
+	for (int j = 0; j < chunkCount; j++)
+		chunks[j]->onRender(RenderPass::Translucent);
 }
 
 BlockState* World::getBlockState(const glm::ivec3& blockPos)

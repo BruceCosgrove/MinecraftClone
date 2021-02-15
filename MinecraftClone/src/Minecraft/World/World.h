@@ -1,13 +1,14 @@
 #pragma once
 
 #include "Blocks/BlockState.h"
+#include "Minecraft/CameraController.h"
 
 class Chunk;
 
 class World
 {
 public:
-	World();
+	World(const CameraController& cameraController);
 	~World();
 
 	void onUpdate(float deltaTime);

@@ -6,7 +6,7 @@
 void Renderer::init()
 {
 	enableDepthTest();
-	enableCullFace();
+	//enableCullFace();
 	enableBlending();
 	BasicRenderer::init();
 }
@@ -50,6 +50,12 @@ void Renderer::enableDepthTest(bool enable)
 {
 	if (enable) glEnable(GL_DEPTH_TEST);
 	else glDisable(GL_DEPTH_TEST);
+}
+
+void Renderer::enableDepthMask(bool enable)
+{
+	if (enable) glDepthMask(GL_TRUE);
+	else glDepthMask(GL_FALSE);
 }
 
 void Renderer::enableCullFace(bool enable)

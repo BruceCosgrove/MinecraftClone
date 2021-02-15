@@ -26,6 +26,7 @@ public:
 
 	// Enable/disable commands
 	static void enableDepthTest(bool enable = true);
+	static void enableDepthMask(bool enable = true);
 	static void enableCullFace(bool enable = true);
 	static void enableBlending(bool enable = true);
 	

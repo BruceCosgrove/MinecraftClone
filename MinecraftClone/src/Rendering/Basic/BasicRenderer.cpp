@@ -41,8 +41,8 @@ void BasicRenderer::init()
 	data.localTextures = new const OpenGLTexture*[data.maxTextures];
 
 	// Setup local buffers
-	data.maxVertices = 9000000; // TODO: query drivers
-	data.maxIndices  = 6000000; // TODO: query drivers
+	data.maxVertices = 900000; // TODO: query drivers
+	data.maxIndices  = 600000; // TODO: query drivers
 	data.localVertexBufferStart = new Vertex[data.maxVertices];
 	data.localVertexBufferCurrent = data.localVertexBufferStart;
 	data.localIndexBufferStart = new unsigned int[data.maxIndices];

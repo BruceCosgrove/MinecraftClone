@@ -7,8 +7,11 @@
 class Models
 {
 public:
-	static std::shared_ptr<Model> CUBE_UNIFORM;
-	static std::shared_ptr<Model> CUBE_TOP_BOTTOM_SIDES;
-	static std::shared_ptr<Model> CUBE;
-	static std::shared_ptr<Model> WATER;
+	static const std::shared_ptr<Model> CUBE_UNIFORM;
+	static const std::shared_ptr<Model> CUBE_TOP_BOTTOM_SIDES;
+	static const std::shared_ptr<Model> CUBE;
+	static const std::shared_ptr<Model> WATER;
+private:
+	static void init();
+	friend class Minecraft;
 };

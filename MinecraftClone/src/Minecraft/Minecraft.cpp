@@ -3,6 +3,8 @@
 #include "Rendering/Basic/BasicRenderer.h"
 #include "Events/WindowEvents.h"
 #include "Core/Application.h"
+#include "Minecraft/World/Models/Models.h"
+#include "Minecraft/World/Blocks/Blocks.h"
 
 Minecraft::Minecraft()
 	: camera(glm::radians(90.0f), 0.01f, 1000.0f)
@@ -12,11 +14,13 @@ Minecraft::Minecraft()
 	Window& window = Application::get().getWindow();
 	camera.onViewportResize(window.getWidth(), window.getHeight());
 
+	Models::init();
+	Blocks::init();
 	loadTextures();
 
 	// TODO: since chunks won't be created in the menu screen, this doesn't necessarily have to be manually called
 	// However, all chunks whose meshes should be regenerated should do so in the same update or spread out over updates
-	world = new World();
+	world = new World(cameraController);
 }
 
 Minecraft::~Minecraft()
@@ -98,15 +102,19 @@ void Minecraft::loadTextures()
 	Blocks::DIRT->setTexCoords(textureAtlas.getTextureSize(), dirtTexCoords);
 	const Block::TextureData grassTexCoords[]{ { grassTopTexCoord, textureSize }, { dirtTexCoord, textureSize }, { grassSideTexCoord, textureSize } };
 	Blocks::GRASS->setTexCoords(textureAtlas.getTextureSize(), grassTexCoords);
-	const Block::TextureData waterTexCoords[]{ { waterTexCoord, textureSize } };
+	const Block::TextureData waterTexCoords[]{ { waterTexCoord, textureSize }, { { waterTexCoord.x, waterTexCoord.y + 2 }, { 16, 16 - 2 } } };
 	Blocks::WATER->setTexCoords(textureAtlas.getTextureSize(), waterTexCoords);
 
 	// TODO: not necessary to keep the local copy
 	textureAtlasSize = textureAtlas.getTextureSize();
-	localTextureAtlases = textureAtlas.create(textureAtlasCount);
+	Texture** localTextureAtlases = textureAtlas.create(textureAtlasCount);
 	textureAtlases = new OpenGLTexture*[textureAtlasCount];
 	for (int i = 0; i < textureAtlasCount; i++)
 		textureAtlases[i] = new OpenGLTexture(localTextureAtlases[i]);
+
+	for (int i = 0; i < textureAtlasCount; i++)
+		delete localTextureAtlases[i];
+	delete[] localTextureAtlases;
 }
 
 glm::ivec2 Minecraft::loadTexture(TextureAtlas& textureAtlas, const std::string& filePath)
@@ -118,10 +126,6 @@ glm::ivec2 Minecraft::loadTexture(TextureAtlas& textureAtlas, const std::string&
 void Minecraft::unloadTextures()
 {
 	for (int i = 0; i < textureAtlasCount; i++)
-	{
 		delete textureAtlases[i];
-		delete localTextureAtlases[i];
-	}
 	delete[] textureAtlases;
-	delete[] localTextureAtlases;
 }
